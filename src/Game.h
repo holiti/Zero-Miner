@@ -1,0 +1,70 @@
+#ifndef GAME
+#define GAME
+
+#include <unordered_map> 
+#include <fstream>
+#include <string>
+#include "constant.h"
+
+//Map PLACE
+class Map{
+    std::unordered_map<int, std::unordered_map<int,bool>> ceil;
+
+    //MData data about one ceil of map
+    struct MData;
+
+public:
+    Map();                          //read this object
+
+    void generate(int,int);         //generate new map
+    short whatIs(int,int);          //answer
+                            
+    void mine(int,int);             //mine ceil
+
+    ~Map();                         //write this object
+};
+
+
+
+
+//GIngo PLACE info about game 
+struct GInfo{
+    int 
+        ch_x,ch_y,                  //pers_cord
+        lb_x, lb_y, rb_x, rb_y,     //bound of visual cord
+        level,                      //number of level
+        stone, ore,                 //amount of stone and ore
+        ore_max;                    //max of ore
+
+    void read();
+    void write();
+};
+
+
+//Game PLACE
+enum gameState {play, stop};
+
+class Game{
+   
+    GInfo info;
+    Map map;
+    gameState game;
+
+    static const inline int 
+        dx[] = {-1,0,1,0}, 
+        dy[] = {0,1,0,-1};
+
+public:
+    Game();
+
+    void move(short);                   //move pers short = [0,3]
+    short whatIs(int,int) const;        //answer
+                                        //
+    gameState stateGame() const;        //return cur state
+    const GInfo& getInfo() const;       //return info about game
+
+    void startGame();
+    void stopGame();
+};
+
+#endif

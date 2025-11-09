@@ -1,3 +1,4 @@
 #all file with prefix tmp
 tmp*
 tmp*/
+data/

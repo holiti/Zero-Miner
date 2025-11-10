@@ -9,5 +9,11 @@ Good luck ^-^
 #define DATAGAME    "../data/game.bin"
 
 #define MHEIGHT     10
-#define MWIDTH      15
+#define MWIDTH      13
+#define GHEIGHT     21 
+#define GWIDTH      81
 
+#define CHARFREE    '.'
+#define CHARSTONE   '#'
+#define CHARORE     '*'
+#define CHAR        '0'

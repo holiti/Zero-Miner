@@ -58,12 +58,12 @@ public:
     Game();
 
     void move(short);                   //move pers short = [0,3]
-    short whatIs(int,int) const;        //answer
+    short whatIs(int,int);              //answer
                                         //
     gameState stateGame() const;        //return cur state
     void setState(gameState);           //set game state
-                                        //
-    int level() const;                  //return level
+
+    const GInfo& getInfo() const;       //return info about game
 
     void startGame(bool);               //false - without restart; 
                                         //true - with restart

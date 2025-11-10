@@ -121,7 +121,14 @@ Game::Game(){
 void Game::move(short n){
 }
 
-short Game::whatIs(int x,int y) const{
+short Game::whatIs(int x,int y){
+    x += info.lb_x;
+    y += info.lb_y;
+
+    if(x == info.ch_x && y == info.ch_y)
+        return 3;
+
+    return this->map.whatIs(x,y);
 }
 
 gameState Game::stateGame() const{
@@ -132,8 +139,8 @@ void Game::setState(gameState n){
     gameS = n;
 }
 
-int Game::level() const{
-    return info.level;
+const GInfo& Game::getInfo() const{
+    return info;
 }
 
 void Game::startGame(bool f){

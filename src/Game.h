@@ -48,7 +48,7 @@ enum gameState {play, stop};
 class Game{
     GInfo info;
     Map map;
-    gameState game;
+    gameState gameS;
 
     static const inline int 
         dx[] = {-1,0,1,0}, 
@@ -61,9 +61,12 @@ public:
     short whatIs(int,int) const;        //answer
                                         //
     gameState stateGame() const;        //return cur state
+    void setState(gameState);           //set game state
+                                        //
     int level() const;                  //return level
 
-    void startGame();
+    void startGame(bool);               //false - without restart; 
+                                        //true - with restart
     void stopGame();
 
     ~Game();

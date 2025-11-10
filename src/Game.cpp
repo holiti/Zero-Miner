@@ -114,7 +114,7 @@ void GInfo::write(){
 
 //Game PLACE
 Game::Game(){
-    game = gameState::stop; 
+    gameS = gameState::stop; 
     info.read();
 }
 
@@ -125,19 +125,26 @@ short Game::whatIs(int x,int y) const{
 }
 
 gameState Game::stateGame() const{
-    return game; 
+    return gameS; 
+}
+
+void Game::setState(gameState n){
+    gameS = n;
 }
 
 int Game::level() const{
     return info.level;
 }
 
-void Game::startGame(){
-    game = gameState::play;
+void Game::startGame(bool f){
+    if(f){
+
+    }
+    gameS = gameState::play;
 }
 
 void Game::stopGame(){
-    game = gameState::stop;
+    gameS = gameState::stop;
 }
 
 Game::~Game(){

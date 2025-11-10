@@ -81,6 +81,65 @@ Map::~Map(){
 
 
 //GInfo PLACE
+GInfo::GInfo(){
+    ch_x = ch_y = 0;
+    lb_x = lb_y = 0;
+    level = 0;
+    stone = ore = 0;
+    ore_max = 0;
+}
 
+void GInfo::read(){
+    std::ifstream file(DATAGAME, std::ios::binary);
+    if(!file)
+        throw std::runtime_error("Error open file with Game info"); 
+
+    file.read(reinterpret_cast<char*>(this), sizeof(GInfo));
+
+    if(!file)
+        throw std::runtime_error("Error read Game info");
+
+    file.close();
+}
+
+void GInfo::write(){
+    std::ofstream file(DATAGAME, std::ios::binary);
+    //WITHOUT EXEPTION 
+    
+    file.write(reinterpret_cast<char*>(this), sizeof(GInfo));
+
+    //WITHOUT EXEPTION
+    file.close();
+}
 
 //Game PLACE
+Game::Game(){
+    game = gameState::stop; 
+    info.read();
+}
+
+void Game::move(short n){
+}
+
+short Game::whatIs(int x,int y) const{
+}
+
+gameState Game::stateGame() const{
+    return game; 
+}
+
+const GInfo& Game::getInfo() const{
+    return info;
+}
+
+void Game::startGame(){
+    game = gameState::play;
+}
+
+void Game::stopGame(){
+    game = gameState::stop;
+}
+
+Game::~Game(){
+    info.write();
+}

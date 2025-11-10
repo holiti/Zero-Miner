@@ -3,7 +3,6 @@
 
 #include <unordered_map> 
 #include <fstream>
-#include <string>
 #include "constant.h"
 
 //Map PLACE
@@ -31,10 +30,12 @@ public:
 struct GInfo{
     int 
         ch_x,ch_y,                  //pers_cord
-        lb_x, lb_y, rb_x, rb_y,     //bound of visual cord
+        lb_x, lb_y,                 //bound of visual cord
         level,                      //number of level
         stone, ore,                 //amount of stone and ore
         ore_max;                    //max of ore
+
+    GInfo();
 
     void read();
     void write();
@@ -45,7 +46,6 @@ struct GInfo{
 enum gameState {play, stop};
 
 class Game{
-   
     GInfo info;
     Map map;
     gameState game;
@@ -65,6 +65,8 @@ public:
 
     void startGame();
     void stopGame();
+
+    ~Game();
 };
 
 #endif

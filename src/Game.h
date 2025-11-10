@@ -61,7 +61,7 @@ public:
     short whatIs(int,int) const;        //answer
                                         //
     gameState stateGame() const;        //return cur state
-    const GInfo& getInfo() const;       //return info about game
+    int level() const;                  //return level
 
     void startGame();
     void stopGame();

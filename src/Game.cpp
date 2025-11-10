@@ -128,8 +128,8 @@ gameState Game::stateGame() const{
     return game; 
 }
 
-const GInfo& Game::getInfo() const{
-    return info;
+int Game::level() const{
+    return info.level;
 }
 
 void Game::startGame(){

@@ -26,7 +26,7 @@ void EVL::process(){
             game.setState(gameState::stop);
         else if(ch == 's')
             game.move(0);
-        else if(ch == 'f')
+        else if(ch == 'd')
             game.move(1);
         else if(ch == 'w')
             game.move(2);

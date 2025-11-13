@@ -119,6 +119,10 @@ Game::Game(){
 }
 
 void Game::move(short n){
+    info.ch_x += dx[n];
+    info.ch_y += dy[n];
+    info.lb_x += dx[n];
+    info.lb_y += dy[n];
 }
 
 short Game::whatIs(int x,int y){

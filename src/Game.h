@@ -51,7 +51,7 @@ class Game{
     gameState gameS;
 
     static const inline int 
-        dx[] = {-1,0,1,0}, 
+        dx[] = {1,0,-1,0}, 
         dy[] = {0,1,0,-1};
 
 public:

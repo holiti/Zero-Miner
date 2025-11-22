@@ -53,13 +53,13 @@ void GUI::RanderGame(const GInfo &info){
         for(int y = 0;y < GWIDTH;++y){
             switch(game.whatIs(x,y)){
                 case 0:
-                    cout << CHARSTONE;
+                    cout << "\e[36m" << CHARSTONE << "\e[0m";
                 break;
                 case 1:
                     cout << CHARFREE;
                 break;
                 case 2:
-                    cout << CHARORE;
+                    cout << "\e[33m" <<  CHARORE << "\e[0m";
                 break;
                 case 3:
                     cout << CHAR;

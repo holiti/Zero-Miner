@@ -32,7 +32,22 @@ void Map::MData::read(std::ifstream &file){
         throw std::runtime_error("Error read map from file");
 }
 
+//Cordinate
+struct Map::Cordinate{
+    int x,y;
+    Cordinate(){
+        y = x = 0;
+    }
+    Cordinate(int a,int b){
+        x = a;
+        y = b;
+    }
 
+    bool isCorrect(int size){
+        //return 1 if cordinate in range
+        return 0 <= x && 0 <= y && x < size && y < size;
+    }
+};
 
 //Map PLACE
 Map::Map(){
@@ -51,11 +66,98 @@ Map::Map(){
     file.close();
 }
 
-void Map::generate(int row, int column){
+std::random_device Map::rd;
+std::mt19937 Map::gen(rd());
+int Map::dx[] = {-1,-1,-1,0,1,1,1,0};
+int Map::dy[] = {-1,0,1,1,1,0,-1,-1};
+
+void Map::randCord(int &x, int &y, std::uniform_int_distribution<>& dst) const{
+    x = dst(gen);
+    y = dst(gen);
+}
+
+bool Map::isFree(int x,int y){
+    return ceil.find(x) != ceil.end() && ceil[x].find(y) != ceil[x].end();
+}
+
+void Map::generate(int size,int ore){
+    ceil.clear();
+    int level = ore / ORE_DIFF;
+    std::uniform_int_distribution<> dst(0,size - 1);
+
+    std::queue<Cordinate> q;
+
+    int miners = level * MINERS;
+    if(miners < 5)
+        miners = 5;
+
+    for(int x = 0;x < miners;++x){
+        Cordinate cur;
+        randCord(cur.x, cur.y, dst);
+        ceil[cur.x][cur.y] = 0;
+        q.push(cur);
+    }
+
+    int maxFree = level * FREE;
+    std::uniform_int_distribution<> d8(0,7);
+    while(!q.empty() && maxFree){
+        auto [x,y] = q.front();
+        q.pop();
+
+        int i = d8(gen); 
+        Cordinate cur(x + dx[i],y + dy[i]);
+        int cnt = 0;
+        while(cnt < 8 && isFree(cur.x,cur.y)){
+            i = (i + 1) % 8;
+            ++cnt;
+            cur.x = x + dx[i];
+            cur.y = y + dy[i];
+        }
+        
+        if(cnt < 8){
+            q.push(cur);
+            ceil[cur.x][cur.y] = 0;
+        }
+        
+        --maxFree;
+    }
+    
+
+    int round = 1;
+    while(round < ROUND){
+        for(auto& [x,e]: ceil){
+            for(auto [y,val]: e){
+                for(int i = 0;i < 8;++i){
+                    Cordinate cur(x + dx[i],y + dy[i]);
+                        int cnt = 0;
+                        for(int i1 = 0;i1 < 8;++i1)
+                            cnt += isFree(cur.x + dx[i1], cur.y + dy[i1]);
+                        if(cnt >= LIVE)
+                            ceil[cur.x][cur.y] = 0;
+                        else if(cnt < DIE){
+                            ceil[cur.x].erase(cur.y);
+                            if(ceil[cur.x].empty())
+                                ceil.erase(cur.x);
+                        }
+                }
+            }
+        }
+        ++round;
+    }
+    
+
+
+    for(int x = 0;x < ore;++x){
+        Cordinate cur;
+        do{
+            randCord(cur.x, cur.y, dst);
+        }while(ceil[cur.x][cur.y] != 0);
+        ceil[cur.x][cur.y] = 1;
+    }
 }
 
 short Map::whatIs(int x,int y){
-    if(ceil.find(x) == ceil.end() || ceil[x].find(y) == ceil[x].end())
+    if(!isFree(x,y))
         return 0;
 
     return ceil[x][y] + 1; 
@@ -123,6 +225,14 @@ void Game::move(short n){
     info.ch_y += dy[n];
     info.lb_x += dx[n];
     info.lb_y += dy[n];
+
+    short ans = map.whatIs(info.ch_x,info.ch_y);
+    map.mine(info.ch_x, info.ch_y);
+    if(ans == 0){
+        info.stone += 1;
+    }else if(ans == 2){
+        info.ore += 1;
+    }
 }
 
 short Game::whatIs(int x,int y){
@@ -149,7 +259,17 @@ const GInfo& Game::getInfo() const{
 
 void Game::startGame(bool f){
     if(f){
+        info.level = 1;
+        info.stone = info.ore = 0;
 
+        int dst = info.level * DIST_DIFF;
+        info.ch_x = GHEIGHT / 2;
+        info.ch_y = GWIDTH / 2;
+        info.lb_x = info.lb_y = 0;
+
+        info.ore_max = info.level * ORE_DIFF;
+
+        map.generate(dst, info.ore_max);
     }
     gameS = gameState::play;
 }

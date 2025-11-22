@@ -17,3 +17,12 @@ Good luck ^-^
 #define CHARSTONE   '#'
 #define CHARORE     '*'
 #define CHAR        '0'
+
+#define MINERS      3 
+#define LIVE        5
+#define DIE         3
+#define FREE        400 
+#define ROUND       40
+
+#define DIST_DIFF   10
+#define ORE_DIFF    10

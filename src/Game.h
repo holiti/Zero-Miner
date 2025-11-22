@@ -3,6 +3,9 @@
 
 #include <unordered_map> 
 #include <fstream>
+#include <random>
+#include <queue>
+#include <array>
 #include "constant.h"
 
 //Map PLACE
@@ -11,7 +14,15 @@ class Map{
 
     //MData data about one ceil of map
     struct MData;
+    struct Cordinate;
 
+    static std::random_device rd;
+    static std::mt19937 gen;
+
+    static int dx[],dy[];
+
+    void randCord(int&, int&, std::uniform_int_distribution<>&) const;
+    bool isFree(int, int);          //1 if ceil in map 'ceil'
 public:
     Map();                          //read this object
 

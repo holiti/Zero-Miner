@@ -1,5 +1,5 @@
 # Zero-min game
-![img1](image/22025-11-28-211811_hyprshot.png)
+![img1](image/2025-11-28-211811_hyprshot.png)
 
 # Explanations
 Menu:

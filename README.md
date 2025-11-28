@@ -1,4 +1,4 @@
-# Zero-min game
+# Zero-mine game
 ![img1](image/2025-11-28-211811_hyprshot.png)
 
 # Explanations

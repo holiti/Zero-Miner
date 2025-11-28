@@ -6,8 +6,12 @@ void GUI::Rander(){
     const GInfo& cur = game.getInfo();
     if(game.stateGame() == gameState::play)
         this->RanderGame(cur);
-    else
+    else if(game.stateGame() == gameState::stop)
         this->RanderMenu(cur);
+    else{
+        this->RanderMenu(cur);
+        this->RanderWin(cur.level);
+    }
     std::cout.flush();
 }
 
@@ -71,4 +75,8 @@ void GUI::RanderGame(const GInfo &info){
 
     drawLine(GWIDTH);
     cout << "q - quite\n";
+}
+
+void GUI::RanderWin(int level){
+    std::cout << "CONGRATULATIONS, you have COMPLETED level " << level - 1 << std::endl;
 }

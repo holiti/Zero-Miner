@@ -4,9 +4,7 @@
 struct Map::MData{
     int x,y;
     bool val;
-
-    MData();
-    MData(int,int,bool);
+MData(); MData(int,int,bool);
     void write(std::ofstream&);
     void read(std::ifstream&);
 };
@@ -218,6 +216,20 @@ void GInfo::write(){
 Game::Game(){
     gameS = gameState::stop; 
     info.read();
+    level_complete = 0;
+}
+
+void Game::genMap(){
+    info.stone = info.ore = 0;
+
+    int dst = info.level * DIST_DIFF;
+    info.ch_x = GHEIGHT / 2;
+    info.ch_y = GWIDTH / 2;
+    info.lb_x = info.lb_y = 0;
+
+    info.ore_max = info.level * ORE_DIFF;
+
+    map.generate(dst, info.ore_max);
 }
 
 void Game::move(short n){
@@ -232,6 +244,11 @@ void Game::move(short n){
         info.stone += 1;
     }else if(ans == 2){
         info.ore += 1;
+        if(info.ore == info.ore_max){
+            gameS = gameState::win;
+            info.level += 1;
+            level_complete = 1;
+        }
     }
 }
 
@@ -258,19 +275,12 @@ const GInfo& Game::getInfo() const{
 }
 
 void Game::startGame(short f){
-    if(f){
+    if(f || level_complete){
         if(f == 2)
             info.level = 1;
-        info.stone = info.ore = 0;
+        genMap();
 
-        int dst = info.level * DIST_DIFF;
-        info.ch_x = GHEIGHT / 2;
-        info.ch_y = GWIDTH / 2;
-        info.lb_x = info.lb_y = 0;
-
-        info.ore_max = info.level * ORE_DIFF;
-
-        map.generate(dst, info.ore_max);
+        level_complete = 0;
     }
     gameS = gameState::play;
 }

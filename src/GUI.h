@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <thread>
+#include <chrono>
 
 #include "Game.h"
 #include "constant.h"
@@ -14,6 +16,7 @@ class GUI{
     void drawLine(short);
     void RanderGame(const GInfo &);
     void RanderMenu(const GInfo &);
+    void RanderWin(int);
 public:
     void Rander();
 };

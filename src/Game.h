@@ -54,17 +54,19 @@ struct GInfo{
 
 
 //Game PLACE
-enum gameState {play, stop};
+enum gameState {play, stop, win};
 
 class Game{
     GInfo info;
     Map map;
     gameState gameS;
+    bool level_complete;
 
     static const inline int 
         dx[] = {1,0,-1,0}, 
         dy[] = {0,1,0,-1};
 
+    void genMap();
 public:
     Game();
 

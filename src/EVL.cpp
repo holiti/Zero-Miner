@@ -34,9 +34,9 @@ void EVL::process(){
             game.move(3);
 
     }else{
-        if(ch <= '2' && '1' <= ch)
-            game.startGame(ch - '0' - 1);
-        else if(ch == '3')
+        if(ch <= '3' && '1' <= ch)
+            game.startGame(ch - '1');
+        else if(ch == '4')
             exit(0);
     }
 }

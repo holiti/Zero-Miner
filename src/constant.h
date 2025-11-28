@@ -8,8 +8,8 @@ Good luck ^-^
 #define DATAMAP     "../data/map.bin"
 #define DATAGAME    "../data/game.bin"
 
-#define MHEIGHT     10
-#define MWIDTH      13
+#define MHEIGHT     11
+#define MWIDTH      16
 #define GHEIGHT     21 
 #define GWIDTH      81
 

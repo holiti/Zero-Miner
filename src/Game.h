@@ -76,7 +76,7 @@ public:
 
     const GInfo& getInfo() const;       //return info about game
 
-    void startGame(bool);               //false - without restart; 
+    void startGame(short);              //false - without restart; 
                                         //true - with restart
     void stopGame();
 

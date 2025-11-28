@@ -257,9 +257,10 @@ const GInfo& Game::getInfo() const{
     return info;
 }
 
-void Game::startGame(bool f){
+void Game::startGame(short f){
     if(f){
-        info.level = 1;
+        if(f == 2)
+            info.level = 1;
         info.stone = info.ore = 0;
 
         int dst = info.level * DIST_DIFF;

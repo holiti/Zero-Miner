@@ -21,7 +21,7 @@ void GUI::drawLine(short n){
 void GUI::RanderMenu(const GInfo &info){
     drawLine(MWIDTH);
     
-    std::cout << "|Level: ";
+    std::cout << "|Level:    ";
     for(int x = 10000, lvl = info.level;x > 0;x /= 10)
         if(lvl >= x)
             std::cout << lvl / x % 10;
@@ -31,7 +31,7 @@ void GUI::RanderMenu(const GInfo &info){
 
     drawLine(MWIDTH);
 
-    std::cout << "|1. continue  |\n|2. start new |\n|3. exit      |\n""";
+    std::cout << "|1. continue     |\n|2. restart level|\n|3. full restart |\n|4. exit         |\n""";
     drawLine(MWIDTH - 2); 
 }
 

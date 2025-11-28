@@ -5,8 +5,8 @@ You can edit this constants but be careful because somthing can break
 Good luck ^-^
 */
 
-#define DATAMAP     "../data/map.bin"
-#define DATAGAME    "../data/game.bin"
+#define DATAMAP     "./data/map.bin"
+#define DATAGAME    "./data/game.bin"
 
 #define MHEIGHT     11
 #define MWIDTH      16

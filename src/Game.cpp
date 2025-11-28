@@ -197,7 +197,7 @@ void GInfo::read(){
     file.read(reinterpret_cast<char*>(this), sizeof(GInfo));
 
     if(!file)
-        throw std::runtime_error("Error read Game info");
+       throw std::runtime_error("Error read Game info");
 
     file.close();
 }
